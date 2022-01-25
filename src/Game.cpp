@@ -14,10 +14,18 @@ bool Game::Initialise() {
         return false;
     }
 
+    mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+    if (mRenderer == nullptr) {
+        SDL_Log("Failed to create renderer: %s", SDL_GetError());
+        return false;
+    }
+
     return true;
 }
 
 void Game::ShutDown() {
+    SDL_DestroyRenderer(mRenderer);
     SDL_DestroyWindow(mWindow);
     SDL_Quit();
 }
@@ -47,4 +55,9 @@ void Game::ProcessInput() {
 };
 
 void Game::UpdateGame() {};
-void Game::GenerateOutput() {};
+
+void Game::GenerateOutput() {
+    SDL_SetRenderDrawColor(mRenderer, 0, 0, 255, 255);
+    SDL_RenderClear(mRenderer);
+    SDL_RenderPresent(mRenderer);
+};
