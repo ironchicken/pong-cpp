@@ -11,7 +11,13 @@ include_directories(pong ${SDL2_INCLUDE_DIRS})
 
 add_executable(
   pong
-  pong.cpp
+  ${CMAKE_SOURCE_DIR}/pong.cpp
+  ${CMAKE_SOURCE_DIR}/src/Game.cpp
+  )
+
+target_include_directories(
+  pong PRIVATE
+  ${CMAKE_SOURCE_DIR}/src
   )
 
 target_link_libraries(pong ${SDL2_LIBRARIES})
