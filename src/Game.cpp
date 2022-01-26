@@ -21,6 +21,16 @@ bool Game::Initialise() {
         return false;
     }
 
+    int w;
+    int h;
+    SDL_GetWindowSize(mWindow, &w, &h);
+    mBallPosition = {
+        static_cast<int>(w / 2),
+        static_cast<int>(h / 2)
+    };
+    mThickness = 16;
+    mIsRunning = true;
+
     return true;
 }
 
@@ -59,5 +69,26 @@ void Game::UpdateGame() {};
 void Game::GenerateOutput() {
     SDL_SetRenderDrawColor(mRenderer, 0, 0, 255, 255);
     SDL_RenderClear(mRenderer);
+
+    SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
+
+    SDL_Rect topWall {
+        0, 0, 1024, mThickness
+    };
+    SDL_Rect bottomWall {
+        0, 768 - mThickness, 1024, mThickness
+    };
+
+    SDL_Rect ball {
+        static_cast<int>(mBallPosition.x - mThickness / 2),
+        static_cast<int>(mBallPosition.y - mThickness / 2),
+        mThickness,
+        mThickness
+    };
+
+    SDL_RenderFillRect(mRenderer, &topWall);
+    SDL_RenderFillRect(mRenderer, &bottomWall);
+    SDL_RenderFillRect(mRenderer, &ball);
+
     SDL_RenderPresent(mRenderer);
 };
