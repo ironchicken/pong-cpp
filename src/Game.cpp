@@ -29,6 +29,11 @@ bool Game::Initialise() {
         static_cast<int>(h / 2)
     };
     mThickness = 16;
+    mPaddleHeight = 128;
+    mPaddlePosition = {
+        mThickness,
+        static_cast<int>(h / 2)
+    };
     mIsRunning = true;
 
     return true;
@@ -86,9 +91,17 @@ void Game::GenerateOutput() {
         mThickness
     };
 
+    SDL_Rect paddle {
+        static_cast<int>(mPaddlePosition.x),
+        static_cast<int>(mPaddlePosition.y - mPaddleHeight / 2),
+        mThickness,
+        mPaddleHeight
+    };
+
     SDL_RenderFillRect(mRenderer, &topWall);
     SDL_RenderFillRect(mRenderer, &bottomWall);
     SDL_RenderFillRect(mRenderer, &ball);
+    SDL_RenderFillRect(mRenderer, &paddle);
 
     SDL_RenderPresent(mRenderer);
 };

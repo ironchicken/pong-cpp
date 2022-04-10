@@ -26,6 +26,7 @@ private:
     Vector2 mPaddlePosition;
     Vector2 mBallPosition;
     int mThickness;
+    int mPaddleHeight;
 };
 
 #endif
