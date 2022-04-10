@@ -34,6 +34,8 @@ bool Game::Initialise() {
         mThickness,
         static_cast<int>(h / 2)
     };
+    mTicksCount = 0;
+    frameRate = 32;
     mIsRunning = true;
 
     return true;
@@ -69,7 +71,21 @@ void Game::ProcessInput() {
     }
 };
 
-void Game::UpdateGame() {};
+void Game::UpdateGame() {
+    auto ticks = SDL_GetTicks();
+    if (ticks - mTicksCount < frameRate) {
+        SDL_Delay(ticks - mTicksCount);
+    }
+
+    ticks = SDL_GetTicks();
+
+    float deltaTime = (ticks - mTicksCount) / 1000.0f;
+    if (deltaTime > 0.05f) {
+        deltaTime = 0.05f;
+    }
+
+    mTicksCount = ticks;
+};
 
 void Game::GenerateOutput() {
     SDL_SetRenderDrawColor(mRenderer, 0, 0, 255, 255);

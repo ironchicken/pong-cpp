@@ -27,6 +27,8 @@ private:
     Vector2 mBallPosition;
     int mThickness;
     int mPaddleHeight;
+    Uint32 mTicksCount;
+    int frameRate;
 };
 
 #endif
