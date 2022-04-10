@@ -23,10 +23,14 @@ private:
     SDL_Window* mWindow;
     SDL_Renderer* mRenderer;
     bool mIsRunning;
+    int mWidth;
+    int mHeight;
     Vector2 mPaddlePosition;
     Vector2 mBallPosition;
     int mThickness;
     int mPaddleHeight;
+    int mPaddleDir;
+    float mPaddleVelocity;
     Uint32 mTicksCount;
     int frameRate;
 };

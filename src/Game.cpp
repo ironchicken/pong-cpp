@@ -21,19 +21,18 @@ bool Game::Initialise() {
         return false;
     }
 
-    int w;
-    int h;
-    SDL_GetWindowSize(mWindow, &w, &h);
+    SDL_GetWindowSize(mWindow, &mWidth, &mHeight);
     mBallPosition = {
-        static_cast<int>(w / 2),
-        static_cast<int>(h / 2)
+        static_cast<int>(mWidth / 2),
+        static_cast<int>(mHeight / 2)
     };
     mThickness = 16;
     mPaddleHeight = 128;
     mPaddlePosition = {
         mThickness,
-        static_cast<int>(h / 2)
+        static_cast<int>(mHeight / 2)
     };
+    mPaddleVelocity = 300.0f;
     mTicksCount = 0;
     frameRate = 32;
     mIsRunning = true;
@@ -66,8 +65,15 @@ void Game::ProcessInput() {
     }
 
     const Uint8* state = SDL_GetKeyboardState(nullptr);
+    mPaddleDir = 0;
     if (state[SDL_SCANCODE_ESCAPE]) {
         mIsRunning = false;
+    }
+    if (state[SDL_SCANCODE_W]) {
+        mPaddleDir -= 1;
+    }
+    if (state[SDL_SCANCODE_S]) {
+        mPaddleDir += 1;
     }
 };
 
@@ -85,6 +91,18 @@ void Game::UpdateGame() {
     }
 
     mTicksCount = ticks;
+
+    if (mPaddleDir != 0) {
+        mPaddlePosition.y += mPaddleDir * mPaddleVelocity * deltaTime;
+
+        if (mPaddlePosition.y < mPaddleHeight / 2) {
+            mPaddlePosition.y = mPaddleHeight / 2;
+        }
+
+        if (mPaddlePosition.y > mHeight - (mPaddleHeight / 2)) {
+            mPaddlePosition.y = mHeight - (mPaddleHeight / 2);
+        }
+    }
 };
 
 void Game::GenerateOutput() {
