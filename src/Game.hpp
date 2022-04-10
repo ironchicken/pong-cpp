@@ -3,9 +3,10 @@
 
 #include "SDL2/SDL.h"
 
+template <typename T>
 struct Vector2 {
-    int x;
-    int y;
+    T x;
+    T y;
 };
 
 class Game {
@@ -25,8 +26,9 @@ private:
     bool mIsRunning;
     int mWidth;
     int mHeight;
-    Vector2 mPaddlePosition;
-    Vector2 mBallPosition;
+    Vector2<int> mPaddlePosition;
+    Vector2<int> mBallPosition;
+    Vector2<float> mBallVelocity;
     int mThickness;
     int mPaddleHeight;
     int mPaddleDir;

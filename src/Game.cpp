@@ -26,6 +26,7 @@ bool Game::Initialise() {
         static_cast<int>(mWidth / 2),
         static_cast<int>(mHeight / 2)
     };
+    mBallVelocity = { -200.0f, 235.0f };
     mThickness = 16;
     mPaddleHeight = 128;
     mPaddlePosition = {
@@ -103,6 +104,17 @@ void Game::UpdateGame() {
             mPaddlePosition.y = mHeight - (mPaddleHeight / 2);
         }
     }
+
+    if (mBallPosition.y <= mThickness && mBallVelocity.y < 0.0f) {
+        mBallVelocity.y *= -1;
+    }
+
+    if (mBallPosition.y >= mHeight - mThickness && mBallVelocity.y > 0.0f) {
+        mBallVelocity.y *= -1;
+    }
+
+    mBallPosition.x += mBallVelocity.x * deltaTime;
+    mBallPosition.y += mBallVelocity.y * deltaTime;
 };
 
 void Game::GenerateOutput() {
