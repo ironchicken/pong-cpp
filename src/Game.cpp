@@ -113,6 +113,15 @@ void Game::UpdateGame() {
         mBallVelocity.y *= -1;
     }
 
+    if (mBallPosition.x <= mPaddlePosition.x + mThickness) {
+        if (mBallPosition.y >= mPaddlePosition.y - (mPaddleHeight / 2)
+            || mBallPosition.y <= mPaddlePosition.y + (mPaddleHeight / 2)) {
+            if (mBallVelocity.x < 0.0f) {
+                mBallVelocity.x *= -1;
+            }
+        }
+    }
+
     mBallPosition.x += mBallVelocity.x * deltaTime;
     mBallPosition.y += mBallVelocity.y * deltaTime;
 };
