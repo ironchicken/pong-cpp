@@ -113,6 +113,10 @@ void Game::UpdateGame() {
         mBallVelocity.y *= -1;
     }
 
+    if (mBallPosition.x >= mWidth - mThickness && mBallVelocity.x > 0.0f) {
+        mBallVelocity.x *= -1;
+    }
+
     if (mBallPosition.x <= mPaddlePosition.x + mThickness) {
         if (mBallPosition.y >= mPaddlePosition.y - (mPaddleHeight / 2)
             || mBallPosition.y <= mPaddlePosition.y + (mPaddleHeight / 2)) {
@@ -138,6 +142,9 @@ void Game::GenerateOutput() {
     SDL_Rect bottomWall {
         0, 768 - mThickness, 1024, mThickness
     };
+    SDL_Rect backWall {
+        1024 - mThickness, 0, mThickness, 768
+    };
 
     SDL_Rect ball {
         static_cast<int>(mBallPosition.x - mThickness / 2),
@@ -155,6 +162,7 @@ void Game::GenerateOutput() {
 
     SDL_RenderFillRect(mRenderer, &topWall);
     SDL_RenderFillRect(mRenderer, &bottomWall);
+    SDL_RenderFillRect(mRenderer, &backWall);
     SDL_RenderFillRect(mRenderer, &ball);
     SDL_RenderFillRect(mRenderer, &paddle);
 
