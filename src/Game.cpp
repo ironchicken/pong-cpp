@@ -122,6 +122,12 @@ void Game::UpdateGame() {
             && mBallPosition.y <= mPaddlePosition.y + (mPaddleHeight / 2)) {
             if (mBallVelocity.x < 0.0f) {
                 mBallVelocity.x *= -1;
+
+                if (mBallVelocity.x < 0.0f) {
+                    mBallVelocity.x -= 20.0f;
+                } else {
+                    mBallVelocity.x += 20.0f;
+                }
             }
         }
     }
