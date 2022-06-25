@@ -37,6 +37,7 @@ bool Game::Initialise() {
     mTicksCount = 0;
     frameRate = 32;
     mIsRunning = true;
+    mIsPaused = true;
 
     return true;
 }
@@ -62,10 +63,16 @@ void Game::ProcessInput() {
         case SDL_QUIT:
             mIsRunning = false;
             break;
+        case SDL_KEYUP:
+            if (event.key.keysym.scancode == SDL_SCANCODE_SPACE) {
+                mIsPaused = !mIsPaused;
+            }
+            break;
         }
     }
 
     const Uint8* state = SDL_GetKeyboardState(nullptr);
+
     mPaddleDir = 0;
     if (state[SDL_SCANCODE_ESCAPE]) {
         mIsRunning = false;
@@ -92,6 +99,10 @@ void Game::UpdateGame() {
     }
 
     mTicksCount = ticks;
+
+    if (mIsPaused) {
+        return;
+    }
 
     if (mPaddleDir != 0) {
         mPaddlePosition.y += mPaddleDir * mPaddleVelocity * deltaTime;

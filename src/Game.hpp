@@ -24,6 +24,7 @@ private:
     SDL_Window* mWindow;
     SDL_Renderer* mRenderer;
     bool mIsRunning;
+    bool mIsPaused;
     int mWidth;
     int mHeight;
     Vector2<int> mPaddlePosition;
