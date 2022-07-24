@@ -20,6 +20,7 @@ private:
     void ProcessInput();
     void UpdateGame();
     void GenerateOutput();
+    float randomY();
 
     SDL_Window* mWindow;
     SDL_Renderer* mRenderer;

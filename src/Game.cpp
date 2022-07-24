@@ -1,4 +1,6 @@
 #include "Game.hpp"
+#include <cstdlib>
+#include <ctime>
 
 bool Game::Initialise() {
     int sdlResult = SDL_Init(SDL_INIT_VIDEO);
@@ -26,7 +28,8 @@ bool Game::Initialise() {
         static_cast<int>(mWidth / 2),
         static_cast<int>(mHeight / 2)
     };
-    mBallVelocity = { -200.0f, 235.0f };
+
+    mBallVelocity = { -200.0f, randomY() };
     mThickness = 16;
     mPaddleHeight = 128;
     mPaddlePosition = {
@@ -139,6 +142,8 @@ void Game::UpdateGame() {
                 } else {
                     mBallVelocity.x += 20.0f;
                 }
+
+                mBallVelocity.y = randomY();
             }
         }
     }
@@ -151,7 +156,7 @@ void Game::UpdateGame() {
                 static_cast<int>(mWidth / 2),
                 static_cast<int>(mHeight / 2)
             };
-            mBallVelocity = { -200.0f, 235.0f };
+            mBallVelocity = { -200.0f, randomY() };
             return;
         }
     }
@@ -198,3 +203,8 @@ void Game::GenerateOutput() {
 
     SDL_RenderPresent(mRenderer);
 };
+
+float Game::randomY() {
+    std::srand(std::time(nullptr));
+    return (float)(std::rand() % 480 + -240);
+}
