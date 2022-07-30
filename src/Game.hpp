@@ -37,6 +37,8 @@ private:
     float mPaddleVelocity;
     Uint32 mTicksCount;
     int frameRate;
+    int mScore;
+    int mNextScore;
 };
 
 #endif

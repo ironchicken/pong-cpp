@@ -41,6 +41,8 @@ bool Game::Initialise() {
     frameRate = 32;
     mIsRunning = true;
     mIsPaused = true;
+    mScore = 0;
+    mNextScore = 10;
 
     return true;
 }
@@ -144,6 +146,9 @@ void Game::UpdateGame() {
                 }
 
                 mBallVelocity.y = randomY();
+
+                mScore += mNextScore;
+                mNextScore += 10;
             }
         }
     }
@@ -157,6 +162,13 @@ void Game::UpdateGame() {
                 static_cast<int>(mHeight / 2)
             };
             mBallVelocity = { -200.0f, randomY() };
+
+            mScore -= 50;
+            if (mScore < 0) {
+                mScore = 0;
+            }
+            mNextScore = 10;
+
             return;
         }
     }
