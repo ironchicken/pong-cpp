@@ -218,5 +218,9 @@ void Game::GenerateOutput() {
 
 float Game::randomY() {
     std::srand(std::time(nullptr));
-    return (float)(std::rand() % 480 + -240);
+
+    float magnitude = (float)(std::rand() % 100);
+    int direction = std::rand() % 2 == 1 ? 1 : -1;
+
+    return (160 + magnitude) * direction;
 }
