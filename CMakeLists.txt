@@ -5,6 +5,8 @@ project(pong)
 set(simple_VERSION_MAJOR 0)
 set(simple_VERSION_MINOR 1)
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2)
+
 find_package(SDL2 REQUIRED)
 
 include_directories(pong ${SDL2_INCLUDE_DIRS})
