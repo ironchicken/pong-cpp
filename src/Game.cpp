@@ -191,13 +191,13 @@ void Game::GenerateOutput() {
     SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
 
     SDL_Rect topWall {
-        0, 0, 1024, mThickness
+        0, 0, mWidth, mThickness
     };
     SDL_Rect bottomWall {
-        0, 768 - mThickness, 1024, mThickness
+        0, mHeight - mThickness, mWidth, mThickness
     };
     SDL_Rect backWall {
-        1024 - mThickness, 0, mThickness, 768
+        mWidth - mThickness, 0, mThickness, mHeight
     };
 
     SDL_Rect ball {
@@ -227,7 +227,7 @@ void Game::GenerateOutput() {
     int scoreWidth { 0 };
     int scoreHeight { 0 };
     SDL_QueryTexture(scoreTexture, nullptr, nullptr, &scoreWidth, &scoreHeight);
-    SDL_Rect scoreRect = { 1024 - mThickness * 2 - scoreWidth, mThickness * 2, scoreWidth, scoreHeight };
+    SDL_Rect scoreRect = { mWidth - mThickness * 2 - scoreWidth, mThickness * 2, scoreWidth, scoreHeight };
 
     SDL_RenderCopy(mRenderer, scoreTexture, nullptr, &scoreRect);
 
