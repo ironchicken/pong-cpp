@@ -23,6 +23,7 @@ private:
     void GenerateOutput();
     float randomY();
     void movePaddle(const float& deltaTime);
+    void checkCollisions();
 
     SDL_Window* mWindow;
     SDL_Renderer* mRenderer;

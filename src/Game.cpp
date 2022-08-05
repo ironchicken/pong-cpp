@@ -117,18 +117,7 @@ void Game::UpdateGame() {
     }
 
     movePaddle(deltaTime);
-
-    if (mBallPosition.y <= mThickness && mBallVelocity.y < 0.0f) {
-        mBallVelocity.y *= -1;
-    }
-
-    if (mBallPosition.y >= mHeight - mThickness && mBallVelocity.y > 0.0f) {
-        mBallVelocity.y *= -1;
-    }
-
-    if (mBallPosition.x >= mWidth - mThickness && mBallVelocity.x > 0.0f) {
-        mBallVelocity.x *= -1;
-    }
+    checkCollisions();
 
     if (mBallPosition.x <= mPaddlePosition.x + mThickness) {
         if (mBallPosition.y >= mPaddlePosition.y - (mPaddleHeight / 2)
@@ -185,6 +174,20 @@ void Game::movePaddle(const float& deltaTime) {
         if (mPaddlePosition.y > mHeight - (mPaddleHeight / 2)) {
             mPaddlePosition.y = mHeight - (mPaddleHeight / 2);
         }
+    }
+}
+
+void Game::checkCollisions() {
+    if (mBallPosition.y <= mThickness && mBallVelocity.y < 0.0f) {
+        mBallVelocity.y *= -1;
+    }
+
+    if (mBallPosition.y >= mHeight - mThickness && mBallVelocity.y > 0.0f) {
+        mBallVelocity.y *= -1;
+    }
+
+    if (mBallPosition.x >= mWidth - mThickness && mBallVelocity.x > 0.0f) {
+        mBallVelocity.x *= -1;
     }
 }
 
