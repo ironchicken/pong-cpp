@@ -119,26 +119,7 @@ void Game::UpdateGame() {
     movePaddle(deltaTime);
     checkCollisions();
     handleHit();
-
-    if (mBallPosition.x <= 0) {
-        if (mBallPosition.y < mPaddlePosition.y - (mPaddleHeight / 2)
-            || mBallPosition.y > mPaddlePosition.y + (mPaddleHeight / 2)) {
-            mIsPaused = true;
-            mBallPosition = {
-                static_cast<int>(mWidth / 2),
-                static_cast<int>(mHeight / 2)
-            };
-            mBallVelocity = { -200.0f, randomY() };
-
-            mScore -= 50;
-            if (mScore < 0) {
-                mScore = 0;
-            }
-            mNextScore = 10;
-
-            return;
-        }
-    }
+    handleMiss();
 
     mBallPosition.x += mBallVelocity.x * deltaTime;
     mBallPosition.y += mBallVelocity.y * deltaTime;
@@ -190,6 +171,28 @@ void Game::handleHit() {
                 mScore += mNextScore;
                 mNextScore += 10;
             }
+        }
+    }
+}
+
+void Game::handleMiss() {
+    if (mBallPosition.x <= 0) {
+        if (mBallPosition.y < mPaddlePosition.y - (mPaddleHeight / 2)
+            || mBallPosition.y > mPaddlePosition.y + (mPaddleHeight / 2)) {
+            mIsPaused = true;
+            mBallPosition = {
+                static_cast<int>(mWidth / 2),
+                static_cast<int>(mHeight / 2)
+            };
+            mBallVelocity = { -200.0f, randomY() };
+
+            mScore -= 50;
+            if (mScore < 0) {
+                mScore = 0;
+            }
+            mNextScore = 10;
+
+            return;
         }
     }
 }

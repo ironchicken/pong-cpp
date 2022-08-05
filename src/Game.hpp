@@ -25,6 +25,7 @@ private:
     void movePaddle(const float& deltaTime);
     void checkCollisions();
     void handleHit();
+    void handleMiss();
 
     SDL_Window* mWindow;
     SDL_Renderer* mRenderer;
