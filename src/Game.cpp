@@ -116,17 +116,7 @@ void Game::UpdateGame() {
         return;
     }
 
-    if (mPaddleDir != 0) {
-        mPaddlePosition.y += mPaddleDir * mPaddleVelocity * deltaTime;
-
-        if (mPaddlePosition.y < mPaddleHeight / 2) {
-            mPaddlePosition.y = mPaddleHeight / 2;
-        }
-
-        if (mPaddlePosition.y > mHeight - (mPaddleHeight / 2)) {
-            mPaddlePosition.y = mHeight - (mPaddleHeight / 2);
-        }
-    }
+    movePaddle(deltaTime);
 
     if (mBallPosition.y <= mThickness && mBallVelocity.y < 0.0f) {
         mBallVelocity.y *= -1;
@@ -183,6 +173,20 @@ void Game::UpdateGame() {
     mBallPosition.x += mBallVelocity.x * deltaTime;
     mBallPosition.y += mBallVelocity.y * deltaTime;
 };
+
+void Game::movePaddle(const float& deltaTime) {
+    if (mPaddleDir != 0) {
+        mPaddlePosition.y += mPaddleDir * mPaddleVelocity * deltaTime;
+
+        if (mPaddlePosition.y < mPaddleHeight / 2) {
+            mPaddlePosition.y = mPaddleHeight / 2;
+        }
+
+        if (mPaddlePosition.y > mHeight - (mPaddleHeight / 2)) {
+            mPaddlePosition.y = mHeight - (mPaddleHeight / 2);
+        }
+    }
+}
 
 void Game::GenerateOutput() {
     SDL_SetRenderDrawColor(mRenderer, 0, 0, 255, 255);

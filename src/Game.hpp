@@ -22,6 +22,7 @@ private:
     void UpdateGame();
     void GenerateOutput();
     float randomY();
+    void movePaddle(const float& deltaTime);
 
     SDL_Window* mWindow;
     SDL_Renderer* mRenderer;
