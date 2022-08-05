@@ -26,6 +26,7 @@ private:
     void checkCollisions();
     void handleHit();
     void handleMiss();
+    void moveBall(const float& deltaTime);
 
     SDL_Window* mWindow;
     SDL_Renderer* mRenderer;

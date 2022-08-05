@@ -120,9 +120,7 @@ void Game::UpdateGame() {
     checkCollisions();
     handleHit();
     handleMiss();
-
-    mBallPosition.x += mBallVelocity.x * deltaTime;
-    mBallPosition.y += mBallVelocity.y * deltaTime;
+    moveBall(deltaTime);
 };
 
 void Game::movePaddle(const float& deltaTime) {
@@ -195,6 +193,11 @@ void Game::handleMiss() {
             return;
         }
     }
+}
+
+void Game::moveBall(const float& deltaTime) {
+    mBallPosition.x += mBallVelocity.x * deltaTime;
+    mBallPosition.y += mBallVelocity.y * deltaTime;
 }
 
 void Game::GenerateOutput() {
