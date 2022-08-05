@@ -8,8 +8,13 @@ set(simple_VERSION_MINOR 1)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2)
 
 find_package(SDL2 REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 
-include_directories(pong ${SDL2_INCLUDE_DIRS})
+include_directories(
+  pong
+  ${SDL2_INCLUDE_DIRS}
+  ${SDL2_TTF_INCLUDE_DIRS}
+  )
 
 add_executable(
   pong
@@ -22,4 +27,8 @@ target_include_directories(
   ${CMAKE_SOURCE_DIR}/src
   )
 
-target_link_libraries(pong ${SDL2_LIBRARIES})
+target_link_libraries(
+  pong
+  ${SDL2_LIBRARIES}
+  ${SDL2_TTF_LIBRARIES}
+  )

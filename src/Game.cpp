@@ -1,6 +1,7 @@
 #include "Game.hpp"
 #include <cstdlib>
 #include <ctime>
+#include <string>
 
 bool Game::Initialise() {
     int sdlResult = SDL_Init(SDL_INIT_VIDEO);
@@ -8,6 +9,8 @@ bool Game::Initialise() {
         SDL_Log("Unable to initialise SDL: %s", SDL_GetError());
         return false;
     }
+
+    TTF_Init();
 
     mWindow = SDL_CreateWindow("Pong", 100, 100, 1024, 768, 0);
 
@@ -44,12 +47,16 @@ bool Game::Initialise() {
     mScore = 0;
     mNextScore = 10;
 
+    mFont = TTF_OpenFont("resources/ARCADECLASSIC.TTF", 25);
+
     return true;
 }
 
 void Game::ShutDown() {
+    TTF_CloseFont(mFont);
     SDL_DestroyRenderer(mRenderer);
     SDL_DestroyWindow(mWindow);
+    TTF_Quit();
     SDL_Quit();
 }
 
@@ -212,6 +219,20 @@ void Game::GenerateOutput() {
     SDL_RenderFillRect(mRenderer, &backWall);
     SDL_RenderFillRect(mRenderer, &ball);
     SDL_RenderFillRect(mRenderer, &paddle);
+
+    SDL_Colour scoreColour = { 180, 180, 180 };
+    SDL_Surface* scoreSurface = TTF_RenderText_Solid(mFont, std::to_string(mScore).c_str(), scoreColour);
+    SDL_Texture* scoreTexture = SDL_CreateTextureFromSurface(mRenderer, scoreSurface);
+
+    int scoreWidth { 0 };
+    int scoreHeight { 0 };
+    SDL_QueryTexture(scoreTexture, nullptr, nullptr, &scoreWidth, &scoreHeight);
+    SDL_Rect scoreRect = { 1024 - mThickness * 2 - scoreWidth, mThickness * 2, scoreWidth, scoreHeight };
+
+    SDL_RenderCopy(mRenderer, scoreTexture, nullptr, &scoreRect);
+
+    SDL_DestroyTexture(scoreTexture);
+    SDL_FreeSurface(scoreSurface);
 
     SDL_RenderPresent(mRenderer);
 };

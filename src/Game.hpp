@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "SDL2/SDL.h"
+#include "SDL2/SDL_ttf.h"
 
 template <typename T>
 struct Vector2 {
@@ -39,6 +40,7 @@ private:
     int frameRate;
     int mScore;
     int mNextScore;
+    TTF_Font* mFont;
 };
 
 #endif
